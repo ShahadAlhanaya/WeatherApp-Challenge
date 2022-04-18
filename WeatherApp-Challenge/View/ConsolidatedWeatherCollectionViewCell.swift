@@ -7,19 +7,21 @@
 
 import UIKit
 
-class DailyCollectionViewCell: UICollectionViewCell {
-    @IBOutlet weak var dayLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var minimumLabel: UILabel!
-    @IBOutlet weak var maximumLabel: UILabel!
+class ConsolidatedWeatherCollectionViewCell: UICollectionViewCell {
     
-    func setImage(icon: String){
-        imageView.image = UIImage(systemName: icon)
-    }
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var dateDescriptionLabel: UILabel!
+    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var minTempLabel: UILabel!
+    @IBOutlet weak var maxTempLabel: UILabel!
+    
+    
+//    func setImage(icon: String){
+//        iconImageView.image = UIImage(systemName: icon)
+//    }
     
     func setUrlImage(from url: URL){
-        imageView.downloaded(from: url)
+        iconImageView.downloaded(from: url)
     }
     
     func getImage(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {

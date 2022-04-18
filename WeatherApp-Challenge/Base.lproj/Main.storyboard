@@ -21,10 +21,10 @@
         </array>
     </customFonts>
     <scenes>
-        <!--View Controller-->
+        <!--Weather View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="WeatherApp_Challenge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WeatherViewController" customModule="WeatherApp_Challenge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,6 +70,7 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="xpi-WR-OXh">
                                 <rect key="frame" x="10" y="318.5" width="394" height="250.5"/>
+                                <color key="backgroundColor" name="color_transparent"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="gSD-8C-Gbv">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -77,7 +78,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DailyCell" id="0Wk-be-ZDZ" customClass="DailyCollectionViewCell" customModule="WeatherApplication" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ConsolidatedWeatherCell" id="0Wk-be-ZDZ" userLabel="ConsolidatedWeatherCell" customClass="ConsolidatedWeatherCollectionViewCell" customModule="WeatherApp_Challenge" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="53" width="121.5" height="144.5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="s6r-p4-kWt">
@@ -132,11 +133,11 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <outlet property="dayLabel" destination="I6N-Ru-v6i" id="7sD-QZ-PKd"/>
-                                            <outlet property="descriptionLabel" destination="kr1-TN-fjw" id="MFE-yB-B2G"/>
-                                            <outlet property="imageView" destination="NBV-8z-rvN" id="gRA-iR-DdP"/>
-                                            <outlet property="maximumLabel" destination="ANG-wu-dTw" id="3bO-eW-tgK"/>
-                                            <outlet property="minimumLabel" destination="aF6-qe-tQj" id="rFG-pJ-uM8"/>
+                                            <outlet property="dateDescriptionLabel" destination="kr1-TN-fjw" id="dlz-Or-UdJ"/>
+                                            <outlet property="dateLabel" destination="I6N-Ru-v6i" id="Kde-Ob-bCc"/>
+                                            <outlet property="iconImageView" destination="NBV-8z-rvN" id="7XR-ef-Tpy"/>
+                                            <outlet property="maxTempLabel" destination="ANG-wu-dTw" id="gd2-qg-jTK"/>
+                                            <outlet property="minTempLabel" destination="aF6-qe-tQj" id="Jvx-gF-V9a"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -176,6 +177,13 @@
                             <constraint firstItem="pHQ-xq-8Vo" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="spD-Ff-u1O"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="cityLabel" destination="73F-VZ-E1O" id="GIm-Rh-q8r"/>
+                        <outlet property="consolidatedWeatherCollectionView" destination="xpi-WR-OXh" id="WfR-cW-tRD"/>
+                        <outlet property="currentDateLabel" destination="fNj-f6-dLX" id="XsB-90-sr5"/>
+                        <outlet property="currentDescriptionLabel" destination="QhE-yu-6mZ" id="0zc-gg-BCX"/>
+                        <outlet property="currentWeatherLabel" destination="pHQ-xq-8Vo" id="yxh-er-rNe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -184,7 +192,6 @@
         <!--View Controller-->
         <scene sceneID="jG2-ZM-6IT">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Axx-3w-LUg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="I1R-iu-ycg" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="INh-nz-vEF">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -247,6 +254,7 @@
                         </constraints>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Axx-3w-LUg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="18.840579710144929" y="-587.27678571428567"/>
         </scene>
