@@ -38,7 +38,7 @@ struct ConsolidatedWeather: Codable {
     let applicableDate: String
     let minTemp, maxTemp, theTemp, windSpeed: Double
     let windDirection, airPressure: Double
-    let humidity: Int
+    let humidity: Double
     let visibility: Double
     let predictability: Int
 

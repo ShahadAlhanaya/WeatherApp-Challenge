@@ -17,6 +17,12 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var currentWeatherLabel: UILabel!
     @IBOutlet weak var consolidatedWeatherCollectionView: UICollectionView!
     
+    @IBOutlet weak var windLabel: UILabel!
+    @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var pressureLabel: UILabel!
+    @IBOutlet weak var visabilityLabel: UILabel!
+    @IBOutlet weak var dayDetailsView: UIView!
+    
     
     //variables
     var consolidatedWeatherList : [ConsolidatedWeather]?
@@ -24,6 +30,13 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
     var currentDate: String?
     var currentDescription: String?
     var currentWeather: Double?
+    
+    var wind: Double?
+    var humidity: Double?
+    var pressure: Double?
+    var visability: Double?
+
+    var selectedDayIndex: Int = 0
     
     //threading
     private var pendingWorkItem: DispatchWorkItem?
@@ -38,6 +51,7 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
         
         //delegates
         consolidatedWeatherCollectionView.dataSource = self
+        consolidatedWeatherCollectionView.delegate = self
 
         //UI
         showUIElements(false)
@@ -69,8 +83,12 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
                 self.currentWeather = self.consolidatedWeatherList?[0].theTemp
                 self.currentDescription = self.consolidatedWeatherList?[0].weatherStateName
                 
+                
+                
                 DispatchQueue.main.async {
                     self.updateUI()
+                    self.selectedDayIndex = 0
+                    self.setUpDetailsView()
                 }
 
             }catch{
@@ -84,6 +102,8 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
         currentDateLabel.isHidden = !flag
         currentDescriptionLabel.isHidden = !flag
         currentWeatherLabel.isHidden = !flag
+        dayDetailsView.isHidden = !flag
+        
     }
     
     func updateUI(){
@@ -93,6 +113,13 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
         currentDescriptionLabel.text = currentDescription?.capitalized
         currentWeatherLabel.text = formatTempreture(temp: currentWeather, to: .celsius)
         showUIElements(true)
+    }
+    
+    func setUpDetailsView(){
+        windLabel.text = String(format: "%.1f", consolidatedWeatherList?[selectedDayIndex].windSpeed as! CVarArg)+"  mph"
+        humidityLabel.text = String(format: "%.0f", consolidatedWeatherList?[selectedDayIndex].humidity as! CVarArg )+"%"
+        pressureLabel.text = String(format: "%.0f", consolidatedWeatherList?[selectedDayIndex].airPressure as! CVarArg )+" mbar"
+        visabilityLabel.text = String(format: "%.0f", consolidatedWeatherList?[selectedDayIndex].visibility as! CVarArg )+" miles"
     }
     
     @IBAction func locationPickerButtonPressed(_ sender: UIBarButtonItem) {
@@ -133,7 +160,19 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
         cell.minTempLabel.text = formatTempreture(temp: currentItem?.minTemp , to: .celsius)
         cell.maxTempLabel.text = formatTempreture(temp: currentItem?.maxTemp , to: .celsius)
         cell.setUrlImage(from: URL(string: "https://www.metaweather.com//static/img/weather/png/64/\(currentItem?.weatherStateAbbr ?? "c").png")!)
+        if indexPath.row == selectedDayIndex {
+            cell.layer.borderColor = UIColor.white.cgColor
+            cell.layer.borderWidth = 4
+        }else{
+            cell.layer.borderWidth = 0
+        }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectedDayIndex = indexPath.row
+        setUpDetailsView()
+        consolidatedWeatherCollectionView.reloadData()
     }
     
     func formatTempreture(temp: Double?, to outputTempType: UnitTemperature)-> String{

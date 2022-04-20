@@ -15,6 +15,10 @@ class LocationPickerViewController: UIViewController,UITableViewDataSource, UITa
     
     //static list of cities
     var locationList = [Location(cityName: "Riyadh", woeid: "1939753"), Location(cityName: "New York", woeid: "2459115"), Location(cityName: "Cairo", woeid: "1521894")]
+    
+    //threading
+    private var pendingWorkItem: DispatchWorkItem?
+    let queue = DispatchQueue(label: "GetWeather")
 
     //outlets
     @IBOutlet weak var addButton: UIButton!
@@ -39,7 +43,7 @@ class LocationPickerViewController: UIViewController,UITableViewDataSource, UITa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell")! as! LocationTableViewCell
         cell.cityLabel.text = locationList[indexPath.row].cityName
-        cell.configureCell(location: locationList[indexPath.row], currentCity: UserDefaults.standard.getCurrentCity())
+        cell.configureCell(location: locationList[indexPath.row])
         return cell
     }
     
@@ -63,11 +67,53 @@ class LocationPickerViewController: UIViewController,UITableViewDataSource, UITa
         alert.addAction(UIAlertAction(title: "Add", style: .default, handler: {action in
             let woeid = alert.textFields![0].text ?? ""
             if woeid.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-                self.locationList.append(Location(cityName: woeid, woeid: woeid))
-                self.locationListTableView.reloadData()
+                
+                self.fetch(woeid)
+                
+
             }
         }))
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func fetch(_ woeid: String){
+        pendingWorkItem?.cancel()
+        let newWorkItem = DispatchWorkItem {
+            self.getWeather(woeid)
+        }
+        pendingWorkItem = newWorkItem
+        queue.sync(execute: newWorkItem)
+    }
+    
+    func getWeather(_ woeid: String){
+        WeatherModel.getWeather(location: woeid,completionHandler: { [self]data,response,error in
+            
+            if response != nil {
+                let httpResponse = response as! HTTPURLResponse
+                if httpResponse.statusCode == 200{
+                    
+                    guard let weatherData = data else { return }
+                    do{
+                        let decoder = JSONDecoder()
+                        let jsonResult = try decoder.decode(WeatherResponse.self, from: weatherData)
+                        let cityName = jsonResult.title.capitalized
+                    
+                        DispatchQueue.main.async {
+                            self.locationList.append(Location(cityName: cityName, woeid: woeid))
+                            self.locationListTableView.reloadData()
+                        }
+                    
+                    }catch{
+                        print(error)
+                    }
+                   
+                }else {
+                    print("not good!")
+                    return
+                }
+            }
+            
+        })
     }
     
     

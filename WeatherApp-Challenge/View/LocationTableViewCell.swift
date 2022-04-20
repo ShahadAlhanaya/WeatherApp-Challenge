@@ -12,9 +12,9 @@ class LocationTableViewCell: UITableViewCell {
     //outlets
     @IBOutlet weak var cityLabel: UILabel!
     
-    func configureCell(location: Location, currentCity: String){
+    func configureCell(location: Location){
         self.accessoryType = .none
-        if location.woeid == currentCity {
+        if location.woeid == UserDefaults.standard.getCurrentCity() {
             self.accessoryType = .checkmark
         }else{
             self.accessoryType = .none
