@@ -8,33 +8,42 @@
 import Foundation
 import UIKit
 
-class WeatherViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
+class WeatherViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, LocationTableDelegate{
     
-    
+    //outlets
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var currentDateLabel: UILabel!
     @IBOutlet weak var currentDescriptionLabel: UILabel!
     @IBOutlet weak var currentWeatherLabel: UILabel!
-    
     @IBOutlet weak var consolidatedWeatherCollectionView: UICollectionView!
     
     
+    //variables
     var consolidatedWeatherList : [ConsolidatedWeather]?
     var city: String?
     var currentDate: String?
     var currentDescription: String?
     var currentWeather: Double?
     
-    
+    //threading
     private var pendingWorkItem: DispatchWorkItem?
     let queue = DispatchQueue(label: "GetWeather")
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        print("heeeey")
-        customizeCollectionViews()
+        print("in Weather View Controller")
+    
+//        print(UserDefaults.standard.getCurrentCity())
+//        print(UserDefaults.standard.getLightMode())
+        
+        //delegates
         consolidatedWeatherCollectionView.dataSource = self
+
+        //UI
+        showUIElements(false)
+        customizeCollectionViews()
+        
+        //retreive data
         fetch()
     }
     
@@ -48,33 +57,59 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     func getWeather(){
-        WeatherModel.getWeather(location: "1939753",completionHandler: { [self]data,response,error in
+        WeatherModel.getWeather(location: UserDefaults.standard.getCurrentCity(),completionHandler: { [self]data,response,error in
             guard let weatherData = data else { return }
             do{
                 let decoder = JSONDecoder()
                 let jsonResult = try decoder.decode(WeatherResponse.self, from: weatherData)
                 
-                print(jsonResult)
                 self.consolidatedWeatherList = jsonResult.consolidatedWeather
                 self.city = jsonResult.title
                 self.currentDate = self.consolidatedWeatherList?[0].applicableDate
                 self.currentWeather = self.consolidatedWeatherList?[0].theTemp
                 self.currentDescription = self.consolidatedWeatherList?[0].weatherStateName
                 
-                
-                print(city)
-                print(formatdate(currentDate: currentDate, format: "EEEE, MMM d, yyyy"))
-                print(formatTempreture(temp: currentWeather , to: .celsius))
-                print(currentDescription)
-                
                 DispatchQueue.main.async {
-                self.consolidatedWeatherCollectionView.reloadData()
+                    self.updateUI()
                 }
 
             }catch{
                 print(error)
             }
         })
+    }
+    
+    func showUIElements(_ flag: Bool){
+        cityLabel.isHidden = !flag
+        currentDateLabel.isHidden = !flag
+        currentDescriptionLabel.isHidden = !flag
+        currentWeatherLabel.isHidden = !flag
+    }
+    
+    func updateUI(){
+        consolidatedWeatherCollectionView.reloadData()
+        cityLabel.text = city?.capitalized
+        currentDateLabel.text = formatdate(currentDate: currentDate, format: "dd MMM yyyy EEEE")
+        currentDescriptionLabel.text = currentDescription?.capitalized
+        currentWeatherLabel.text = formatTempreture(temp: currentWeather, to: .celsius)
+        showUIElements(true)
+    }
+    
+    @IBAction func locationPickerButtonPressed(_ sender: UIBarButtonItem) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "LocationPickerVC") as! LocationPickerViewController
+        vc.locationTableDelegate = self
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func modeButtonPressed(_ sender: UIBarButtonItem) {
+        //dark/light mode for later
+    }
+    
+    //LocationTableDelegate function
+    func updateCurrentCity() {
+        fetch()
     }
     
     func customizeCollectionViews(){
@@ -92,9 +127,8 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ConsolidatedWeatherCell", for: indexPath as IndexPath) as! ConsolidatedWeatherCollectionViewCell
-        print(indexPath)
         let currentItem = consolidatedWeatherList?[indexPath.row]
-        cell.dateLabel.text = formatdate(currentDate: currentItem?.applicableDate, format: "dd EEEE")
+        cell.dateLabel.text = formatdate(currentDate: currentItem?.applicableDate, format: "dd EEE ")
         cell.dateDescriptionLabel.text = currentItem?.weatherStateName
         cell.minTempLabel.text = formatTempreture(temp: currentItem?.minTemp , to: .celsius)
         cell.maxTempLabel.text = formatTempreture(temp: currentItem?.maxTemp , to: .celsius)

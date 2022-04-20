@@ -40,6 +40,11 @@
 		FCF7BE09280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE08280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift */; };
 		FCF7BE0A280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE08280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift */; };
 		FCF7BE0B280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE08280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift */; };
+		FCF7BE0D280F29820004A906 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE0C280F29820004A906 /* LocationPickerViewController.swift */; };
+		FCF7BE0F280F2FC30004A906 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE0E280F2FC30004A906 /* LocationTableViewCell.swift */; };
+		FCF7BE11280F347D0004A906 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE10280F347D0004A906 /* Location.swift */; };
+		FCF7BE14280F9A8E0004A906 /* SavedUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE13280F9A8E0004A906 /* SavedUserDefaults.swift */; };
+		FCF7BE17280FA0120004A906 /* LocationTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE16280FA0120004A906 /* LocationTableDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +86,11 @@
 		FCF7BE00280C43590004A906 /* WeatherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherModel.swift; sourceTree = "<group>"; };
 		FCF7BE04280C43650004A906 /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		FCF7BE08280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolidatedWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
+		FCF7BE0C280F29820004A906 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
+		FCF7BE0E280F2FC30004A906 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
+		FCF7BE10280F347D0004A906 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		FCF7BE13280F9A8E0004A906 /* SavedUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedUserDefaults.swift; sourceTree = "<group>"; };
+		FCF7BE16280FA0120004A906 /* LocationTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +141,8 @@
 		FCF7BDB4280C375D0004A906 /* WeatherApp-Challenge */ = {
 			isa = PBXGroup;
 			children = (
+				FCF7BE15280F9FF30004A906 /* Delegate */,
+				FCF7BE12280F9A3C0004A906 /* Extension */,
 				FCF7BDFA280C3ABA0004A906 /* Model */,
 				FCF7BDF9280C3AB40004A906 /* Controller */,
 				FCF7BDFB280C3AD00004A906 /* View */,
@@ -178,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				FCF7BDFC280C43320004A906 /* WeatherViewController.swift */,
+				FCF7BE0C280F29820004A906 /* LocationPickerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -187,6 +200,7 @@
 			children = (
 				FCF7BE00280C43590004A906 /* WeatherModel.swift */,
 				FCF7BE04280C43650004A906 /* Weather.swift */,
+				FCF7BE10280F347D0004A906 /* Location.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -195,8 +209,25 @@
 			isa = PBXGroup;
 			children = (
 				FCF7BE08280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift */,
+				FCF7BE0E280F2FC30004A906 /* LocationTableViewCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		FCF7BE12280F9A3C0004A906 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FCF7BE13280F9A8E0004A906 /* SavedUserDefaults.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		FCF7BE15280F9FF30004A906 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				FCF7BE16280FA0120004A906 /* LocationTableDelegate.swift */,
+			);
+			path = Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,11 +375,16 @@
 			files = (
 				FCF7BDC0280C375D0004A906 /* WeatherApp_Challenge.xcdatamodeld in Sources */,
 				FCF7BDFD280C43320004A906 /* WeatherViewController.swift in Sources */,
+				FCF7BE11280F347D0004A906 /* Location.swift in Sources */,
 				FCF7BE09280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift in Sources */,
+				FCF7BE0F280F2FC30004A906 /* LocationTableViewCell.swift in Sources */,
 				FCF7BDB6280C375D0004A906 /* AppDelegate.swift in Sources */,
 				FCF7BE01280C43590004A906 /* WeatherModel.swift in Sources */,
 				FCF7BDB8280C375D0004A906 /* SceneDelegate.swift in Sources */,
+				FCF7BE14280F9A8E0004A906 /* SavedUserDefaults.swift in Sources */,
 				FCF7BE05280C43650004A906 /* Weather.swift in Sources */,
+				FCF7BE17280FA0120004A906 /* LocationTableDelegate.swift in Sources */,
+				FCF7BE0D280F29820004A906 /* LocationPickerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,16 +9,13 @@ import UIKit
 
 class ConsolidatedWeatherCollectionViewCell: UICollectionViewCell {
     
+    //outlets
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var dateDescriptionLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var minTempLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
     
-    
-//    func setImage(icon: String){
-//        iconImageView.image = UIImage(systemName: icon)
-//    }
     
     func setUrlImage(from url: URL){
         iconImageView.downloaded(from: url)
@@ -29,7 +26,7 @@ class ConsolidatedWeatherCollectionViewCell: UICollectionViewCell {
     }
     
 }
-//
+
 extension UIImageView {
     func downloaded(from url: URL, contentMode mode: ContentMode = .scaleAspectFit) {
         contentMode = mode
