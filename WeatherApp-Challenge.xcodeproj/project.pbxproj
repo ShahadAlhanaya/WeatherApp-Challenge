@@ -42,7 +42,7 @@
 		FCF7BE0B280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE08280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift */; };
 		FCF7BE0D280F29820004A906 /* LocationPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE0C280F29820004A906 /* LocationPickerViewController.swift */; };
 		FCF7BE0F280F2FC30004A906 /* LocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE0E280F2FC30004A906 /* LocationTableViewCell.swift */; };
-		FCF7BE11280F347D0004A906 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE10280F347D0004A906 /* Location.swift */; };
+		FCF7BE11280F347D0004A906 /* LocationStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE10280F347D0004A906 /* LocationStatic.swift */; };
 		FCF7BE14280F9A8E0004A906 /* SavedUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE13280F9A8E0004A906 /* SavedUserDefaults.swift */; };
 		FCF7BE17280FA0120004A906 /* LocationTableDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCF7BE16280FA0120004A906 /* LocationTableDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -88,7 +88,7 @@
 		FCF7BE08280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsolidatedWeatherCollectionViewCell.swift; sourceTree = "<group>"; };
 		FCF7BE0C280F29820004A906 /* LocationPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPickerViewController.swift; sourceTree = "<group>"; };
 		FCF7BE0E280F2FC30004A906 /* LocationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableViewCell.swift; sourceTree = "<group>"; };
-		FCF7BE10280F347D0004A906 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		FCF7BE10280F347D0004A906 /* LocationStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStatic.swift; sourceTree = "<group>"; };
 		FCF7BE13280F9A8E0004A906 /* SavedUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedUserDefaults.swift; sourceTree = "<group>"; };
 		FCF7BE16280FA0120004A906 /* LocationTableDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationTableDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,7 +200,7 @@
 			children = (
 				FCF7BE00280C43590004A906 /* WeatherModel.swift */,
 				FCF7BE04280C43650004A906 /* Weather.swift */,
-				FCF7BE10280F347D0004A906 /* Location.swift */,
+				FCF7BE10280F347D0004A906 /* LocationStatic.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -375,7 +375,7 @@
 			files = (
 				FCF7BDC0280C375D0004A906 /* WeatherApp_Challenge.xcdatamodeld in Sources */,
 				FCF7BDFD280C43320004A906 /* WeatherViewController.swift in Sources */,
-				FCF7BE11280F347D0004A906 /* Location.swift in Sources */,
+				FCF7BE11280F347D0004A906 /* LocationStatic.swift in Sources */,
 				FCF7BE09280C43C10004A906 /* ConsolidatedWeatherCollectionViewCell.swift in Sources */,
 				FCF7BE0F280F2FC30004A906 /* LocationTableViewCell.swift in Sources */,
 				FCF7BDB6280C375D0004A906 /* AppDelegate.swift in Sources */,

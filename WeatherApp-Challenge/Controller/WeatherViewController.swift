@@ -23,6 +23,10 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
     @IBOutlet weak var visabilityLabel: UILabel!
     @IBOutlet weak var dayDetailsView: UIView!
     
+    @IBOutlet weak var modeButton: UIBarButtonItem!
+    @IBOutlet weak var bgImageView: UIImageView!
+    
+    
     
     //variables
     var consolidatedWeatherList : [ConsolidatedWeather]?
@@ -54,6 +58,7 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
         consolidatedWeatherCollectionView.delegate = self
 
         //UI
+        setDarkMode(UserDefaults.standard.getLightMode())
         showUIElements(false)
         customizeCollectionViews()
         
@@ -131,7 +136,20 @@ class WeatherViewController: UIViewController, UICollectionViewDataSource, UICol
     }
     
     @IBAction func modeButtonPressed(_ sender: UIBarButtonItem) {
-        //dark/light mode for later
+        print("heeeey")
+        setDarkMode(!UserDefaults.standard.getLightMode())
+    }
+    
+    func setDarkMode(_ flag: Bool){
+        if flag{
+            bgImageView.image = UIImage(named: "bg_day")
+            modeButton.image = UIImage(systemName: "sun.max.fill")
+            UserDefaults.standard.setLightMode(value: true)
+        }else{
+            bgImageView.image = UIImage(named: "bg_night")
+            modeButton.image = UIImage(systemName: "moon")
+            UserDefaults.standard.setLightMode(value: false)
+        }
     }
     
     //LocationTableDelegate function

@@ -21,9 +21,17 @@ extension UserDefaults{
     func getCurrentCity() -> String{
         return string(forKey: UserDefaultsKeys.currentCity.rawValue) ?? "1939753" //Riyadh is the default
     }
+    
+    func setIsLoadedDefaultCities(value: Bool){
+        set(value, forKey: UserDefaultsKeys.isLoadedDefaultCities.rawValue)
+    }
+    func getIsLoadedDefaultCities() -> Bool{
+        return bool(forKey: UserDefaultsKeys.isLoadedDefaultCities.rawValue)
+    }
 }
 
 enum UserDefaultsKeys : String {
     case lightMode
     case currentCity
+    case isLoadedDefaultCities
 }

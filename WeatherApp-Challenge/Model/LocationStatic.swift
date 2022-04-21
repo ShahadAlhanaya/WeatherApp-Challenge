@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Location{
+struct LocationStatic{
     let cityName: String
     let woeid: String
 }

@@ -104,7 +104,7 @@
                                                                                 <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
                                                                             </accessibility>
                                                                             <fontDescription key="fontDescription" name="Ubuntu-Light" family="Ubuntu" pointSize="16"/>
-                                                                            <color key="textColor" name="color_transparent_white"/>
+                                                                            <color key="textColor" name="color_transparent_navy"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sun.min" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NBV-8z-rvN">
@@ -330,6 +330,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bgImageView" destination="e3R-l6-zuq" id="1KS-S1-xdn"/>
                         <outlet property="cityLabel" destination="73F-VZ-E1O" id="GIm-Rh-q8r"/>
                         <outlet property="consolidatedWeatherCollectionView" destination="xpi-WR-OXh" id="WfR-cW-tRD"/>
                         <outlet property="currentDateLabel" destination="fNj-f6-dLX" id="XsB-90-sr5"/>
@@ -337,6 +338,7 @@
                         <outlet property="currentWeatherLabel" destination="pHQ-xq-8Vo" id="yxh-er-rNe"/>
                         <outlet property="dayDetailsView" destination="r4N-mI-UnP" id="bBg-fk-8Ze"/>
                         <outlet property="humidityLabel" destination="MPp-uD-NGf" id="S7j-ig-ivj"/>
+                        <outlet property="modeButton" destination="22a-RH-WWV" id="6gv-G9-Iqy"/>
                         <outlet property="pressureLabel" destination="K1g-1h-0We" id="puV-nr-rtN"/>
                         <outlet property="visabilityLabel" destination="BtN-0d-ttd" id="mrw-rG-PHB"/>
                         <outlet property="windLabel" destination="qn9-Z0-Lz4" id="yOg-m6-MNn"/>
@@ -370,14 +372,14 @@
                                 <color key="tintColor" name="AccentColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" accessoryType="checkmark" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="LocationCell" id="wwB-y9-ewr" customClass="LocationTableViewCell" customModule="WeatherApp_Challenge" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="394" height="63"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="394" height="63.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wwB-y9-ewr" id="JS7-HX-IIB">
-                                            <rect key="frame" x="0.0" y="0.0" width="353.5" height="63"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="353.5" height="63.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BZI-qv-2TI">
-                                                    <rect key="frame" x="30" y="21" width="305.5" height="21"/>
+                                                    <rect key="frame" x="30" y="21" width="305.5" height="21.5"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>

@@ -13,12 +13,13 @@ class LocationPickerViewController: UIViewController,UITableViewDataSource, UITa
     //delegate
     var locationTableDelegate: LocationTableDelegate?
     
-    //static list of cities
-    var locationList = [Location(cityName: "Riyadh", woeid: "1939753"), Location(cityName: "New York", woeid: "2459115"), Location(cityName: "Cairo", woeid: "1521894")]
-    
     //threading
     private var pendingWorkItem: DispatchWorkItem?
     let queue = DispatchQueue(label: "GetWeather")
+    
+    //coredata
+    var locations = [Location]()
+    var managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     //outlets
     @IBOutlet weak var addButton: UIButton!
@@ -34,21 +35,25 @@ class LocationPickerViewController: UIViewController,UITableViewDataSource, UITa
         
         //set back button color
         self.navigationController?.navigationBar.tintColor = UIColor.white;
+        
+        //coredata
+        fetchLocations()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locationList.count
+//        return locationList.count
+        return locations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "LocationCell")! as! LocationTableViewCell
-        cell.cityLabel.text = locationList[indexPath.row].cityName
-        cell.configureCell(location: locationList[indexPath.row])
+        cell.cityLabel.text = locations[indexPath.row].cityName
+        cell.configureCell(location: locations[indexPath.row])
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        UserDefaults.standard.setCurrentCity(value: locationList[indexPath.row].woeid)
+        UserDefaults.standard.setCurrentCity(value: locations[indexPath.row].woeid!)
         locationListTableView.reloadData()
         locationTableDelegate?.updateCurrentCity()
     }
@@ -57,7 +62,6 @@ class LocationPickerViewController: UIViewController,UITableViewDataSource, UITa
         showAddAlert()
     }
     
-    //not working yet
     func showAddAlert(){
         let alert = UIAlertController(title: "Add City", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
@@ -99,7 +103,10 @@ class LocationPickerViewController: UIViewController,UITableViewDataSource, UITa
                         let cityName = jsonResult.title.capitalized
                     
                         DispatchQueue.main.async {
-                            self.locationList.append(Location(cityName: cityName, woeid: woeid))
+                            let newLocation = Location(context: self.managedObjectContext)
+                            newLocation.cityName = cityName
+                            newLocation.woeid = woeid
+                            saveLocation()
                             self.locationListTableView.reloadData()
                         }
                     
@@ -114,6 +121,26 @@ class LocationPickerViewController: UIViewController,UITableViewDataSource, UITa
             }
             
         })
+    }
+    
+    func saveLocation() {
+        do {
+            try managedObjectContext.save()
+            print("Successfully saved")
+        } catch {
+            print("Error when saving: \(error)")
+        }
+        fetchLocations()
+    }
+    
+    func fetchLocations() {
+        do {
+            locations = try managedObjectContext.fetch(Location.fetchRequest())
+            print("Success")
+        } catch {
+            print("Error: \(error)")
+        }
+        locationListTableView.reloadData()
     }
     
     

@@ -12,11 +12,38 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        
+        if UserDefaults.standard.getIsLoadedDefaultCities() == false {
+            
+            //data
+            let riyadh = Location(context: managedObjectContext)
+            riyadh.cityName = "Riyadh"
+            riyadh.woeid = "1939753"
+            let cairo = Location(context: managedObjectContext)
+            cairo.cityName = "Cairo"
+            cairo.woeid = "1521894"
+            let newyork = Location(context: managedObjectContext)
+            newyork.cityName = "New York"
+            newyork.woeid = "2459115"
+            
+            //saving
+            do {
+                try managedObjectContext.save()
+                print("Successfully saved")
+            } catch {
+                print("Error when saving: \(error)")
+            }
+            
+            //change state of isLoadedDefaultCities
+            UserDefaults.standard.setIsLoadedDefaultCities(value: true)
+        }
         return true
     }
+    
 
     // MARK: UISceneSession Lifecycle
 
